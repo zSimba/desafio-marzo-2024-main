@@ -1,6 +1,7 @@
 package com.programandoenjava.desafiomarzo2024.controller;
 
 import com.programandoenjava.desafiomarzo2024.entities.Room;
+import com.programandoenjava.desafiomarzo2024.entities.RoomType;
 import com.programandoenjava.desafiomarzo2024.service.RoomService;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class RoomController {
 
     @PutMapping("/actualizar/{id}")
     public String actualizarRoom(@PathVariable Long id,
-                                 @RequestParam (required = false, name = "type") String newType,
+                                 @RequestParam (required = false, name = "type") RoomType newType,
                                  @RequestParam (required = false, name = "price") double newPrice
                                  ){
         return roomService.updateRoom(id, newType, newPrice);

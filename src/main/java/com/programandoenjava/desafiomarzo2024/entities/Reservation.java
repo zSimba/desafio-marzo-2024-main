@@ -14,13 +14,17 @@ public class Reservation {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nombreCliente;
+    private long id_reservation;
     private Date checkIn;
     private Date checkOut;
-    @OneToMany
-    @JoinColumn (name = "idHabitacion")
-    private Set<Room> room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
 
 }
