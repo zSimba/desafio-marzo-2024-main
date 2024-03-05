@@ -5,6 +5,7 @@ import com.programandoenjava.desafiomarzo2024.entities.RoomType;
 import com.programandoenjava.desafiomarzo2024.service.RoomService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -17,22 +18,34 @@ public class RoomController {
         this.roomService = roomService;
     }
 
+
+    // Tarea 1: Registrar Nuevas Habitaciones
     @PostMapping("/crear")
     public String createRoom(@RequestBody Room myRoom){
         return roomService.saveRoom(myRoom);
     }
 
+    // Tarea 2: Listar Todas las Habitaciones Disponibles
     @GetMapping("/lista")
     public List<Room> getLista(){
         return roomService.getAllRooms();
     }
 
+    // Tarea 3: Actualizar Detalles de las Habitaciones
     @PutMapping("/actualizar/{id}")
     public String actualizarRoom(@PathVariable Long id,
                                  @RequestParam (required = false, name = "type") RoomType newType,
                                  @RequestParam (required = false, name = "price") double newPrice
                                  ){
         return roomService.updateRoom(id, newType, newPrice);
+    }
+
+    // Tarea 8: Buscar Habitaciones Disponibles por Fecha y Tipo
+    @GetMapping("/buscar")
+    public List<Room> findByDateType (@RequestParam LocalDate starDate,
+                                @RequestParam LocalDate endDate,
+                                @RequestParam RoomType type){
+        return roomService.findAvailable(starDate, endDate, type);
     }
 
 }

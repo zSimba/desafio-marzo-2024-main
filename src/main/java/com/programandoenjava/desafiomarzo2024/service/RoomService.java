@@ -6,6 +6,7 @@ import com.programandoenjava.desafiomarzo2024.entities.RoomType;
 import com.programandoenjava.desafiomarzo2024.repository.IRoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,7 @@ public class RoomService {
     }
 
     // Tarea 8: Buscar Habitaciones Disponibles por Fecha y Tipo
-    public List<Room> findAvailable(Date startDate, Date endDate, RoomType type) {
+    public List<Room> findAvailable(LocalDate startDate, LocalDate endDate, RoomType type) {
         List<Room> rooms = roomRepository.findByType(type);
         List<Room> result = new ArrayList<>();
         for (Room room : rooms) {
@@ -67,12 +68,12 @@ public class RoomService {
 
     }
 
-    public boolean isAvailable(Room room, Date start, Date end) {
+    public boolean isAvailable(Room room, LocalDate start, LocalDate end) {
         Set<Reservation> reservas = room.getReservation();
         for (Reservation reserva : reservas) {
-            Date checkIn = reserva.getCheckIn();
-            Date checkOut = reserva.getCheckOut();
-            if ((start.before(checkOut) || start.equals(checkOut)) && (end.after(checkIn) || start.equals(checkIn))) {
+            LocalDate checkIn = reserva.getCheckIn();
+            LocalDate checkOut = reserva.getCheckOut();
+            if (!start.isAfter(checkOut) && !end.isBefore(checkIn)) {
                 return false;
             }
         }

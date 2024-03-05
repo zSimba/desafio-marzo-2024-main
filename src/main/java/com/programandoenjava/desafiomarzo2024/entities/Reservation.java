@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.Set;
+import java.time.LocalDate;
+
 
 @Entity
 @Setter
@@ -15,8 +15,8 @@ public class Reservation {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id_reservation;
-    private Date checkIn;
-    private Date checkOut;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
