@@ -49,6 +49,7 @@ public class RoomService {
         if (myRoom != null) {
             myRoom.setType(newType);
             myRoom.setPrice(newPrice);
+            roomRepository.save(myRoom);
             return "Habitación actualizada con éxito";
         }
 

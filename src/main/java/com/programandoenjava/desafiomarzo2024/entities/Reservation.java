@@ -1,5 +1,6 @@
 package com.programandoenjava.desafiomarzo2024.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private long id_reservation;
     private LocalDate checkIn;
     private LocalDate checkOut;
