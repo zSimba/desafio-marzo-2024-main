@@ -1,8 +1,10 @@
 package com.programandoenjava.desafiomarzo2024.controller;
 
+import com.programandoenjava.desafiomarzo2024.dto.RoomDto;
 import com.programandoenjava.desafiomarzo2024.entities.Room;
 import com.programandoenjava.desafiomarzo2024.entities.RoomType;
 import com.programandoenjava.desafiomarzo2024.service.RoomService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -42,10 +44,12 @@ public class RoomController {
 
     // Tarea 8: Buscar Habitaciones Disponibles por Fecha y Tipo
     @GetMapping("/buscar")
-    public List<Room> findByDateType (@RequestParam LocalDate starDate,
-                                @RequestParam LocalDate endDate,
-                                @RequestParam RoomType type){
-        return roomService.findAvailable(starDate, endDate, type);
+    public List<Room> findByDateType (@RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkIn,
+                                      @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkOut,
+                                      @RequestParam RoomType type){
+        return roomService.findAvailable2(checkIn, checkOut, type);
     }
+
+
 
 }

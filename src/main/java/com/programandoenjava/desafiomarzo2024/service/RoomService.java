@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -79,6 +78,10 @@ public class RoomService {
             }
         }
         return true;
+    }
+
+    public List<Room> findAvailable2(LocalDate start, LocalDate end, RoomType type){
+        return roomRepository.findAvailable2(start, end, type);
     }
 
 }

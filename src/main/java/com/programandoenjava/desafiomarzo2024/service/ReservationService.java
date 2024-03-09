@@ -1,5 +1,6 @@
 package com.programandoenjava.desafiomarzo2024.service;
 
+import com.programandoenjava.desafiomarzo2024.dto.ReservationDto;
 import com.programandoenjava.desafiomarzo2024.entities.Cliente;
 import com.programandoenjava.desafiomarzo2024.entities.Reservation;
 import com.programandoenjava.desafiomarzo2024.entities.Room;
@@ -24,14 +25,14 @@ public class ReservationService {
     }
 
     // Para crear una resrva, debe existir previamente el cliente y la habitacion a los cuales se asocia la reserva
-    public String createReservation(Long roomId, Long clienteId, LocalDate checkIn, LocalDate checkOut) {
-        Room room = roomRepository.findById(roomId).orElse(null);
-        Cliente cliente = clienteRepository.findById(clienteId).orElse(null);
+    public String createReservation(ReservationDto reserva) {
+        Room room = roomRepository.findById(reserva.getRoomId()).orElse(null);
+        Cliente cliente = clienteRepository.findById(reserva.getClienteId()).orElse(null);
 
         if (room != null && cliente != null) {
             Reservation reservation = new Reservation();
-            reservation.setCheckIn(checkIn);
-            reservation.setCheckOut(checkOut);
+            reservation.setCheckIn(reserva.getCheckIn());
+            reservation.setCheckOut(reserva.getCheckOut());
             reservation.setRoom(room);
             reservation.setCliente(cliente);
             reservationRepository.save(reservation);
@@ -61,18 +62,22 @@ public class ReservationService {
         if (reserva != null) {
             reserva.setCheckIn(newCheckIn);
             reserva.setCheckOut(newCheckOut);
+            reservationRepository.save(reserva);
             return "Se han modificado las fechas";
         }
 
         return "No se ha encontrado la reserva que busca";
     }
 
+
     public List<Reservation> getAllReservation() {
         return reservationRepository.findAll();
     }
 
-    public List<Reservation> findByClinete(String nombreCliente) {
-        return reservationRepository.findByCliente_Nombre(nombreCliente);
+    public List<Reservation> findByCliente(String nombreCliente) {
+        return reservationRepository.findByClienteName(nombreCliente);
     }
+
+
 
 }

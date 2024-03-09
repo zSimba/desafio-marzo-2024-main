@@ -1,5 +1,6 @@
 package com.programandoenjava.desafiomarzo2024.controller;
 
+import com.programandoenjava.desafiomarzo2024.dto.ReservationDto;
 import com.programandoenjava.desafiomarzo2024.entities.Reservation;
 import com.programandoenjava.desafiomarzo2024.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
@@ -19,38 +20,35 @@ public class ReservationController {
 
     // Tarea 4: Crear Reservas para los Clientes
 
-    @PostMapping("/crear/{roomId}{clienteId}{checkIn}{checkOut}")
-    public String createReservation(@PathVariable Long roomId,
-                                    @PathVariable Long clienteId,
-                                    @PathVariable LocalDate checkIn,
-                                    @PathVariable LocalDate checkOut){
-        return reservationService.createReservation(roomId, clienteId, checkIn, checkOut);
+    @PostMapping("/crear")
+    public String createReservation(@RequestBody ReservationDto reserva) {
+        return reservationService.createReservation(reserva);
     }
 
     // Tarea 5: Cancelar Reservas
     @DeleteMapping("/cancelar")
-    public String cancelarReserva (Long id){
+    public String cancelarReserva(Long id) {
         return reservationService.cancelReserva(id);
     }
 
     // Tarea 6: Modificar Fechas de una Reserva Existente
     @PutMapping("/midificar/{id}")
-    public String modificarReserva (@PathVariable Long id,
-                                    @RequestParam (required = false, name = "starDate") LocalDate newCheckIn ,
-                                    @RequestParam (required = false, name = "endDate") LocalDate newCheckOut){
-        return reservationService.updateReserva(id,newCheckIn, newCheckOut);
+    public String modificarReserva(@PathVariable Long id,
+                                   @RequestParam(required = false, name = "starDate") LocalDate newCheckIn,
+                                   @RequestParam(required = false, name = "endDate") LocalDate newCheckOut) {
+        return reservationService.updateReserva(id, newCheckIn, newCheckOut);
 
     }
 
     // Tarea 7: Listar Todas las Reservas
     @GetMapping("/lista")
-    public List<Reservation> getLista (){
+    public List<Reservation> getLista() {
         return reservationService.getAllReservation();
     }
 
     // Tarea 9: Buscar Reservas por Nombre del Cliente
     @GetMapping("/buscar/{nombreCliente}")
-    public List<Reservation> findByNombreCliente (@PathVariable String nombreCliente){
-        return reservationService.findByClinete(nombreCliente);
+    public List<Reservation> findByNombreCliente(@PathVariable String nombreCliente) {
+        return reservationService.findByCliente(nombreCliente);
     }
 }
