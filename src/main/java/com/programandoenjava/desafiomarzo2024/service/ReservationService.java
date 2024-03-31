@@ -50,7 +50,7 @@ public class ReservationService {
 
     public String cancelReserva(Long id) {
         reservationRepository.deleteById(id);
-        return "Se ha eliminado la reserva con ´´exito";
+        return "Se ha eliminado la reserva con éxito";
     }
 
     public Reservation findReserva(Long id) {

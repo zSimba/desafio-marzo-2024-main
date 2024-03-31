@@ -52,34 +52,35 @@ public class RoomService {
             return "Habitación actualizada con éxito";
         }
 
-        return "No sse ha encontrado la habitación";
+        return "No se ha encontrado la habitación";
     }
+
+//    // Tarea 8: Buscar Habitaciones Disponibles por Fecha y Tipo
+//    public List<Room> findAvailable(LocalDate startDate, LocalDate endDate, RoomType type) {
+//        List<Room> rooms = roomRepository.findByType(type);
+//        List<Room> result = new ArrayList<>();
+//        for (Room room : rooms) {
+//            if (isAvailable(room, startDate, endDate)) {
+//                result.add(room);
+//            }
+//        }
+//        return result;
+//
+//    }
+//
+//    public boolean isAvailable(Room room, LocalDate start, LocalDate end) {
+//        Set<Reservation> reservas = room.getReservation();
+//        for (Reservation reserva : reservas) {
+//            LocalDate checkIn = reserva.getCheckIn();
+//            LocalDate checkOut = reserva.getCheckOut();
+//            if (!start.isAfter(checkOut) && !end.isBefore(checkIn)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     // Tarea 8: Buscar Habitaciones Disponibles por Fecha y Tipo
-    public List<Room> findAvailable(LocalDate startDate, LocalDate endDate, RoomType type) {
-        List<Room> rooms = roomRepository.findByType(type);
-        List<Room> result = new ArrayList<>();
-        for (Room room : rooms) {
-            if (isAvailable(room, startDate, endDate)) {
-                result.add(room);
-            }
-        }
-        return result;
-
-    }
-
-    public boolean isAvailable(Room room, LocalDate start, LocalDate end) {
-        Set<Reservation> reservas = room.getReservation();
-        for (Reservation reserva : reservas) {
-            LocalDate checkIn = reserva.getCheckIn();
-            LocalDate checkOut = reserva.getCheckOut();
-            if (!start.isAfter(checkOut) && !end.isBefore(checkIn)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public List<Room> findAvailable2(LocalDate start, LocalDate end, RoomType type){
         return roomRepository.findAvailable2(start, end, type);
     }
